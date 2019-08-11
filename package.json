@@ -1,0 +1,34 @@
+{
+  "name": "sms-api",
+  "version": "1.0.0",
+  "description": "An sms api that allows users to send and recieve sms to their contacts",
+  "main": "./src/index.js",
+  "repository": "https://github.com/ssewilliam/snap-sms.git",
+  "author": "William Sserubiri",
+  "license": "MIT",
+  "scripts": {
+    "build-server": "babel src --out-dir dist -s",
+    "clean": "rm -rf dist && mkdir dist",
+    "build": "yarn clean && yarn build-server",
+    "serve": "node dist/index.js",
+    "start": "yarn build && yarn serve",
+    "start:dev": "yarn build && DEBUG=log yarn serve",
+    "start:watch": "DEBUG=log nodemon --exec babel-node src/index.js",
+    "lint": "eslint src/**/**.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
+    "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^10.0.2",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "nodemon": "^1.19.1"
+  }
+}
