@@ -14,7 +14,8 @@
     "start": "yarn build && yarn serve",
     "start:dev": "yarn build && DEBUG=log yarn serve",
     "start:watch": "DEBUG=log nodemon --exec babel-node src/index.js",
-    "lint": "eslint src/**/**.js"
+    "lint": "eslint src/**/**.js",
+    "test": "jest"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -29,6 +30,8 @@
     "eslint": "^6.1.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
-    "nodemon": "^1.19.1"
+    "jest": "^24.8.0",
+    "nodemon": "^1.19.1",
+    "supertest": "^4.0.2"
   }
 }
