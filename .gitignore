@@ -6,3 +6,9 @@ dist
 
 # environment variables
 .env
+
+# Dependecy version tracker
+yarn.lock
+
+# Coverage dir
+coverage
