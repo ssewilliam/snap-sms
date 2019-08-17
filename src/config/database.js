@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const commonEnvOptions = {
   databaseUrl: process.env.DATABASE_URL,
-  dialect: process.env.DATABASE_DIALECT || 'postgres',
+  dialect: process.env.DATABASE_DIALECT,
   use_env_variable: 'DATABASE_URL',
 };
 

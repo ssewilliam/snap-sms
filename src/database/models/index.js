@@ -3,13 +3,24 @@ import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';
 import config from '../../config/database';
+import env from '../../config/env';
 
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
 const db = {};
 const logger = debug('log');
 
-const sequelize = new Sequelize(config[env].databaseUrl, config[env]);
+const databaseOptions = {
+  ...config[env.NODE_ENV],
+  logging: env.SEQUELISE_LOGGING,
+  define: {
+    freezeTableName: env.NO_PLURALIZE_TABLE_NAMES,
+  },
+};
+
+const sequelize = new Sequelize(
+  config[env.NODE_ENV].databaseUrl,
+  databaseOptions,
+);
 
 fs.readdirSync(__dirname)
   .filter(

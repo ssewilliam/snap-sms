@@ -15,7 +15,7 @@
     "start:dev": "yarn build && DEBUG=log yarn serve",
     "start:watch": "DEBUG=log nodemon --exec babel-node src/index.js",
     "lint": "eslint src/**/**.js",
-    "pretest": "NODE_ENV=test node_modules/.bin/sequelize db:migrate",
+    "pretest": "node_modules/.bin/sequelize db:migrate",
     "test": "jest --forceExit --detectOpenHandles"
   },
   "dependencies": {
@@ -23,6 +23,7 @@
     "debug": "^4.1.1",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
+    "express-validator": "^6.1.1",
     "morgan": "^1.9.1",
     "pg": "^7.12.1",
     "pg-hstore": "^2.3.3",

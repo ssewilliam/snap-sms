@@ -1,3 +1,8 @@
 import userController from './userController';
+import smsController from './smsController';
 
-export { userController };
+const contollers = {
+  userController,
+  smsController,
+};
+export default contollers;
