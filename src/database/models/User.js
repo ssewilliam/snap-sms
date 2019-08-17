@@ -17,7 +17,10 @@ export default (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      unique: {
+        args: true,
+        msg: 'Email already used',
+      },
       validate: {
         notEmpty: true,
       },
@@ -31,7 +34,11 @@ export default (sequelize, DataTypes) => {
     },
   });
   User.associate = (models) => {
-    // associations can be defined here
+    User.hasMany(models.Sms, {
+      foreignKey: 'senderId',
+      as: 'userSms',
+      onDelete: 'CASCADE',
+    });
   };
   return User;
 };
