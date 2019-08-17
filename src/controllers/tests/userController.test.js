@@ -1,25 +1,13 @@
-import request from 'supertest';
+import baseTest from './baseTest';
 
-import app from '../..';
-import models from '../../database/models';
+const { request, app, truncateTables } = baseTest;
 
 describe('API routes', () => {
   beforeAll(async () => {
-    await models.Users.destroy({ force: true, truncate: { cascade: true } });
-  });
-  it('should return the right string', (done) => {
-    request(app)
-      .get('/api/v1/')
-      .expect(200)
-      .end((err, res) => {
-        expect(res.body).toHaveProperty('statusMessage');
-        expect(res.body.statusMessage).toEqual('This is the SMS API');
-        if (err) return done(err);
-        done();
-      });
+    await truncateTables();
   });
 
-  it('should return the right strings', (done) => {
+  it('should return the user details after registration', (done) => {
     request(app)
       .post('/api/v1/user')
       .set('Content-Type', 'application/json')

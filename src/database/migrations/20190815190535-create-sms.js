@@ -1,35 +1,31 @@
+
 module.exports = {
-  up: (queryInterface, DataTypes) => queryInterface.createTable('Users', {
+  up: (queryInterface, DataTypes) => queryInterface.createTable('Sms', {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    firstName: {
+    senderId: {
+      type: DataTypes.INTEGER,
+    },
+    receiverId: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
       },
     },
-    lastName: {
+    messageBody: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
       },
     },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      validate: {
-        notEmpty: true,
-      },
-    },
-    image: {
-      type: DataTypes.STRING,
+    isRead: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
       validate: {
         notEmpty: true,
@@ -38,14 +34,11 @@ module.exports = {
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
     },
     updatedAt: {
       allowNull: false,
       type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
     },
   }),
-
-  down: (queryInterface) => queryInterface.dropTable('Users'),
+  down: (queryInterface) => queryInterface.dropTable('Sms'),
 };

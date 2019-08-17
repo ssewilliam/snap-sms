@@ -1,17 +1,10 @@
 import models from '../database/models';
+import ResponseController from './responseController';
 
 class User {
   static welcome(req, res) {
     res.status(200).json({
       statusMessage: 'This is the SMS API',
-    });
-  }
-
-  static response(res, message, result) {
-    return res.status(message[0]).json({
-      success: message[2],
-      message: message[1],
-      result,
     });
   }
 
@@ -28,7 +21,7 @@ class User {
     });
 
     const message = [201, 'Role created successfully', true];
-    User.response(res, message, result);
+    ResponseController.response(res, message, result);
   }
 }
 
