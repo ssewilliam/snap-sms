@@ -16,7 +16,8 @@
     "start:watch": "DEBUG=log nodemon --exec babel-node src/index.js",
     "lint": "eslint src/**/**.js",
     "pretest": "node_modules/.bin/sequelize db:migrate",
-    "test": "jest --forceExit --detectOpenHandles"
+    "test": "jest --forceExit --detectOpenHandles",
+    "makemigrations": "node_modules/.bin/sequelize db:migrate"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
