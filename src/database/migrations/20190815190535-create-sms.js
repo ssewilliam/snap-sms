@@ -9,6 +9,11 @@ module.exports = {
     },
     senderId: {
       type: DataTypes.INTEGER,
+      onDelete: 'CASCADE',
+      references: {
+        model: 'Users',
+        key: 'id',
+      },
     },
     receiverId: {
       type: DataTypes.STRING,
@@ -38,6 +43,10 @@ module.exports = {
     updatedAt: {
       allowNull: false,
       type: DataTypes.DATE,
+    },
+    deletedAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
     },
   }),
   down: (queryInterface) => queryInterface.dropTable('Sms'),

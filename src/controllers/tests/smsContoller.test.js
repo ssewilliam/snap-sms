@@ -1,17 +1,21 @@
 import baseTest from './baseTest';
 
-const { request, app, truncateTables } = baseTest;
+const {
+  request, app, truncateTables, users, registerUser,
+} = baseTest;
 
 describe('smsController', () => {
+  let userResult;
   beforeAll(async () => {
     await truncateTables();
+    userResult = await registerUser(users.user1);
   });
   it('should allow auser to send an sms', (done) => {
     request(app)
       .post('/api/v1/sms')
       .set('Content-Type', 'application/json')
       .send({
-        senderId: 1,
+        senderId: userResult.body.result.id,
         receiverId: 1,
         messageBody: 'this is a sample message from the body',
       })
@@ -28,7 +32,7 @@ describe('smsController', () => {
       .post('/api/v1/sms')
       .set('Content-Type', 'application/json')
       .send({
-        senderId: 1,
+        senderId: userResult.body.result.id,
         receiverId: 'one',
         messageBody: 'this is a sample message from the body',
       })

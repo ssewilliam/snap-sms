@@ -29,9 +29,10 @@ export default (sequelize, DataTypes) => {
         notEmpty: true,
       },
     },
-  });
+  }, { paranoid: true });
   Sms.associate = (models) => {
-    // associations can be defined here
+    Sms.belongsTo(models.Users,
+      { constraints: false });
   };
   return Sms;
 };
