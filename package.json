@@ -6,6 +6,10 @@
   "repository": "https://github.com/ssewilliam/snap-sms.git",
   "author": "William Sserubiri",
   "license": "MIT",
+  "engines": {
+    "node": "10.16.0",
+    "yarn":"1.16.0"
+  },
   "scripts": {
     "build-server": "babel src --out-dir dist -s",
     "clean": "rm -rf dist && mkdir dist",
@@ -17,6 +21,7 @@
     "lint": "eslint src/**/**.js",
     "pretest": "node_modules/.bin/sequelize db:migrate",
     "test": "jest --forceExit --detectOpenHandles",
+    "postinstall": "yarn makemigrations",
     "makemigrations": "node_modules/.bin/sequelize db:migrate"
   },
   "dependencies": {
