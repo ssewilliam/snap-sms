@@ -15,7 +15,7 @@ describe('smsController', () => {
       .post('/api/v1/sms')
       .set('Content-Type', 'application/json')
       .send({
-        senderId: userResult.body.result.id,
+        userId: userResult.body.result.id,
         receiverId: 1,
         messageBody: 'this is a sample message from the body',
       })
@@ -32,13 +32,30 @@ describe('smsController', () => {
       .post('/api/v1/sms')
       .set('Content-Type', 'application/json')
       .send({
-        senderId: userResult.body.result.id,
+        userd: userResult.body.result.id,
         receiverId: 'one',
         messageBody: 'this is a sample message from the body',
       })
       .end((err, res) => {
         expect(res.status).toBe(422);
-        expect(res.body.errors[0].msg).toEqual('receiver id must be a number');
+        expect(res.body.errors[2].msg).toEqual('receiver id must be a number');
+        done();
+      });
+  });
+  it('should not send messages to unkown users', (done) => {
+    request(app)
+      .post('/api/v1/sms')
+      .set('Content-Type', 'application/json')
+      .send({
+        userId: 12,
+        receiverId: 3,
+        messageBody: 'this is a sample message from the body',
+      })
+      .end((err, res) => {
+        expect(res.status).toBe(400);
+        expect(res.body.success).toEqual(false);
+        expect(res.body.result).toEqual(null);
+        expect(res.body.message).toEqual('Sender does not exist');
         done();
       });
   });

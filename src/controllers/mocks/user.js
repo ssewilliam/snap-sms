@@ -1,11 +1,11 @@
 const user1 = {
-  email: 'ssewilliam@mail.com',
+  phoneNumber: '0800328832',
   firstName: 'sse',
   lastName: 'william',
   imageField: 'http://ugextra.com/images/me',
 };
 const user2 = {
-  email: 'ssewilliam@aol.com',
+  phoneNumber: '0800338833',
   firstName: 'deri',
   lastName: 'william',
   imageField: 'http://ugextra.com/images/me',

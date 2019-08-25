@@ -9,14 +9,21 @@ module.exports = {
     },
     senderId: {
       type: DataTypes.INTEGER,
-      onDelete: 'CASCADE',
       references: {
         model: 'Users',
         key: 'id',
       },
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
     },
     receiverId: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Users',
+        key: 'id',
+      },
       allowNull: false,
       validate: {
         notEmpty: true,

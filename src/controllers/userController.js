@@ -8,10 +8,10 @@ class User {
     });
   }
 
-  static async getUser(email) {
+  static async getUser(phoneNumber) {
     const user = await models.Users.findOne({
       where: {
-        email,
+        phoneNumber,
       },
     });
     return user;
@@ -19,9 +19,9 @@ class User {
 
   static async register(req, res) {
     const {
-      email, firstName, lastName, imageField,
+      phoneNumber, firstName, lastName, imageField,
     } = req.body;
-    const foundUser = await User.getUser(email);
+    const foundUser = await User.getUser(phoneNumber);
 
     if (foundUser) {
       const message = [409, 'Contact already exists', false];
@@ -29,7 +29,7 @@ class User {
     }
 
     const result = await models.Users.create({
-      email,
+      phoneNumber,
       firstName,
       lastName,
       image: imageField,
@@ -40,15 +40,19 @@ class User {
   }
 
   static async delete(req, res) {
-    const { email } = req.body;
-    const foundUser = await User.getUser(email);
+    const { phoneNumber } = req.body;
+    const foundUser = await User.getUser(phoneNumber);
 
     if (foundUser) {
       const result = await foundUser.destroy();
       const message = [200, 'Contact deleted successfully', true];
       return ResponseController.response(res, message, result);
     }
-    const message = [404, `User with email ${email} does not exist`, false];
+    const message = [
+      404,
+      `User with number ${phoneNumber} does not exist`,
+      false,
+    ];
     return ResponseController.response(res, message, null);
   }
 }

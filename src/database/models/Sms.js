@@ -8,7 +8,7 @@ export default (sequelize, DataTypes) => {
       },
     },
     receiverId: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         notEmpty: true,
@@ -30,9 +30,21 @@ export default (sequelize, DataTypes) => {
       },
     },
   }, { paranoid: true });
-  Sms.associate = (models) => {
-    Sms.belongsTo(models.Users,
-      { constraints: false });
-  };
+  Sms.addHook('afterCreate', (sms) => {
+    console.log('--------->', sms.dataValues);
+    sequelize.models.Inbox.create({
+      ...sms.dataValues,
+      userId: sms.dataValues.receiverId,
+      smsId: sms.dataValues.id,
+    });
+    sequelize.models.Sent.create({
+      ...sms.dataValues,
+      userId: sms.dataValues.senderId,
+      smsId: sms.dataValues.id,
+    });
+  });
+  // (Sms.associate = (models) => {
+  //   Sms.belongsTo(models.Users, { constraints: false });
+  // });
   return Sms;
 };

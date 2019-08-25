@@ -21,10 +21,13 @@ module.exports = {
         notEmpty: true,
       },
     },
-    email: {
-      type: DataTypes.STRING,
+    phoneNumber: {
+      type: DataTypes.INTEGER,
       allowNull: false,
-      unique: true,
+      unique: {
+        args: true,
+        msg: 'Contact Number already saved',
+      },
       validate: {
         notEmpty: true,
       },

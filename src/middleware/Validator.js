@@ -9,10 +9,10 @@ const verifyValidation = (req, res, next) => {
 };
 
 exports.validateRequest = [
-  body('senderId')
+  body('userId')
     .exists()
     .isNumeric()
-    .withMessage('sender id must be a number')
+    .withMessage('userId of sender must be a number')
     .trim(),
   body('receiverId')
     .exists()
@@ -27,12 +27,39 @@ exports.validateRequest = [
     .withMessage('message body must atleast six characheters long'),
   verifyValidation,
 ];
-exports.validateEmail = [
-  body('email')
+exports.validatePhoneNumber = [
+  body('phoneNumber')
     .exists()
-    .withMessage('Email has not been defined')
-    .isEmail()
-    .withMessage('Email entered is not a valid email')
+    .withMessage('phoneNumber has not been defined')
+    .isNumeric()
+    .withMessage('Number entered is not a valid phoneNumber')
+    .trim(),
+  verifyValidation,
+];
+exports.validateUser = [
+  body('phoneNumber')
+    .exists()
+    .withMessage('phoneNumber has not been defined')
+    .isNumeric()
+    .withMessage('Number entered is not a valid phoneNumber')
+    .trim(),
+  body('firstName')
+    .exists()
+    .withMessage('firstName has not been defined')
+    .isString()
+    .withMessage('firstName entered is not a valid string')
+    .trim(),
+  body('lastName')
+    .exists()
+    .withMessage('lastName has not been defined')
+    .isString()
+    .withMessage('lastName entered is not a valid string')
+    .trim(),
+  body('imageField')
+    .exists()
+    .withMessage('imageField url has not been defined')
+    .isURL()
+    .withMessage('imageField URL is not valid')
     .trim(),
   verifyValidation,
 ];

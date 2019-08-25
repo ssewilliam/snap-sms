@@ -14,12 +14,12 @@ export default (sequelize, DataTypes) => {
         notEmpty: true,
       },
     },
-    email: {
-      type: DataTypes.STRING,
+    phoneNumber: {
+      type: DataTypes.INTEGER,
       allowNull: false,
       unique: {
         args: true,
-        msg: 'Email already used',
+        msg: 'Contact Number already saved',
       },
       validate: {
         notEmpty: true,

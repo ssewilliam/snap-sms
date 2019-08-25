@@ -5,8 +5,14 @@ import models from '../../database/models';
 import users from '../mocks/user';
 
 const truncateTables = async () => {
-  await models.Sms.destroy({ force: true, truncate: { cascade: true } });
-  await models.Users.destroy({ force: true, truncate: { cascade: true } });
+  await models.Sms.destroy({ force: true, truncate: true, cascade: true });
+  await models.Users.destroy({
+    force: true,
+    restartIdentity: true,
+    truncate: true,
+    cascade: true,
+  });
+  await models.Sent.destroy({ force: true, truncate: true, cascade: true });
 };
 
 it('should return the right string from the API', (done) => {
@@ -27,11 +33,11 @@ const registerUser = async (userObject) => {
     .send({ ...userObject });
   return res;
 };
-const deleteUser = async (email) => {
+const deleteUser = async (phoneNumber) => {
   const res = await request(app)
     .delete('/api/v1/user')
     .set('Content-Type', 'application/json')
-    .send({ email });
+    .send({ phoneNumber });
   return res;
 };
 

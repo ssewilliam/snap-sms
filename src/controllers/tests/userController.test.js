@@ -26,8 +26,20 @@ describe('API routes', () => {
     expect(res.body.message).toEqual('Contact already exists');
   });
 
+  it('should not allow user to register without phone numbers', async () => {
+    const user = {
+      ...users.user1,
+      phoneNumber: undefined,
+    };
+    const res = await registerUser(user);
+
+    expect(res.body.errors[0].param).toBe('phoneNumber');
+    expect(res.body.errors[0].msg).toBe('phoneNumber has not been defined');
+    expect(res.statusCode).toEqual(422);
+  });
+
   it('should delete a user', async () => {
-    const res = await deleteUser(users.user1.email);
+    const res = await deleteUser(users.user1.phoneNumber);
 
     expect(res.body).toHaveProperty('success');
     expect(res.body.message).toBe('Contact deleted successfully');
@@ -35,18 +47,18 @@ describe('API routes', () => {
   });
 
   it('should not delete a user who does not exist', async () => {
-    const res = await deleteUser('emaildoesnotexist@mail.com');
+    const res = await deleteUser('0774555577');
 
     expect(res.body.success).toBe(false);
     expect(res.body.result).toBe(null);
     expect(res.statusCode).toEqual(404);
   });
 
-  it('should not delete a user with invalid email', async () => {
-    const res = await deleteUser('fakeemailatmail.com');
+  it('should not delete a user with invalid phoneNumber', async () => {
+    const res = await deleteUser('o773BB88ss');
     expect(res.statusCode).toEqual(422);
     expect(res.body.errors[0].msg).toBe(
-      'Email entered is not a valid email',
+      'Number entered is not a valid phoneNumber',
     );
   });
 });
