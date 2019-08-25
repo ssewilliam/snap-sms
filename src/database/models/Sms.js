@@ -31,7 +31,6 @@ export default (sequelize, DataTypes) => {
     },
   }, { paranoid: true });
   Sms.addHook('afterCreate', (sms) => {
-    console.log('--------->', sms.dataValues);
     sequelize.models.Inbox.create({
       ...sms.dataValues,
       userId: sms.dataValues.receiverId,
@@ -43,8 +42,5 @@ export default (sequelize, DataTypes) => {
       smsId: sms.dataValues.id,
     });
   });
-  // (Sms.associate = (models) => {
-  //   Sms.belongsTo(models.Users, { constraints: false });
-  // });
   return Sms;
 };

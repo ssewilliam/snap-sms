@@ -1,4 +1,4 @@
-import { body, validationResult } from 'express-validator';
+import { body, validationResult, param } from 'express-validator';
 
 const verifyValidation = (req, res, next) => {
   const errors = validationResult(req);
@@ -36,13 +36,16 @@ exports.validatePhoneNumber = [
     .trim(),
   verifyValidation,
 ];
-exports.validateUser = [
-  body('phoneNumber')
+exports.validateParamPhoneNumber = [
+  param('phoneNumber')
     .exists()
-    .withMessage('phoneNumber has not been defined')
+    .withMessage('phoneNumber has not been defined in the url path')
     .isNumeric()
     .withMessage('Number entered is not a valid phoneNumber')
     .trim(),
+  verifyValidation,
+];
+exports.validateUser = [
   body('firstName')
     .exists()
     .withMessage('firstName has not been defined')

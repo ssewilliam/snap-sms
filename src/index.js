@@ -27,7 +27,7 @@ app.use('*', (req, res) => res.status(404).json({
   message: 'Not Found. Use /api/v1 to access the Api',
 }));
 
-if (process.env.NODE_ENV !== 'test') {
+if (env.NODE_ENV !== 'test') {
   logger(port);
   app.listen(port);
 }

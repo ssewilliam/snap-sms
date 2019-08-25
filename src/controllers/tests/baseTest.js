@@ -33,6 +33,25 @@ const registerUser = async (userObject) => {
     .send({ ...userObject });
   return res;
 };
+const getUser = async (phoneNumber) => {
+  const res = await request(app)
+    .get(`/api/v1/user/${phoneNumber}`)
+    .set('Content-Type', 'application/json');
+  return res;
+};
+const getUsers = async () => {
+  const res = await request(app)
+    .get('/api/v1/users')
+    .set('Content-Type', 'application/json');
+  return res;
+};
+const updateUser = async (phoneNumber, newData) => {
+  const res = await request(app)
+    .put(`/api/v1/user/${phoneNumber}`)
+    .set('Content-Type', 'application/json')
+    .send({ ...newData });
+  return res;
+};
 const deleteUser = async (phoneNumber) => {
   const res = await request(app)
     .delete('/api/v1/user')
@@ -46,6 +65,9 @@ const baseTest = {
   request,
   truncateTables,
   registerUser,
+  updateUser,
+  getUser,
+  getUsers,
   deleteUser,
   users,
 };

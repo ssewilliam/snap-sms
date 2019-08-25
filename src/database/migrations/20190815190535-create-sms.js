@@ -9,10 +9,6 @@ module.exports = {
     },
     senderId: {
       type: DataTypes.INTEGER,
-      references: {
-        model: 'Users',
-        key: 'id',
-      },
       allowNull: false,
       validate: {
         notEmpty: true,
@@ -20,10 +16,6 @@ module.exports = {
     },
     receiverId: {
       type: DataTypes.INTEGER,
-      references: {
-        model: 'Users',
-        key: 'id',
-      },
       allowNull: false,
       validate: {
         notEmpty: true,
