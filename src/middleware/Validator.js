@@ -66,3 +66,12 @@ exports.validateUser = [
     .trim(),
   verifyValidation,
 ];
+exports.validateReceiver = [
+  param('receiverId')
+    .exists()
+    .withMessage('receiverId must be defined')
+    .isNumeric()
+    .withMessage('receiverId must be a valid number')
+    .trim(),
+  verifyValidation,
+];

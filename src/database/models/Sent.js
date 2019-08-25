@@ -7,6 +7,10 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Sent.associate = (models) => {
     Sent.belongsTo(models.Users);
+    Sent.belongsTo(models.Sms, {
+      through: 'Sms',
+      foreignKey: 'userId',
+    });
   };
   return Sent;
 };

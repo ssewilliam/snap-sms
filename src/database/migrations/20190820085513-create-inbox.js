@@ -20,6 +20,11 @@ module.exports = {
     },
     smsId: {
       type: DataTypes.INTEGER,
+      onDelete: 'CASCADE',
+      references: {
+        model: 'Sms',
+        key: 'id',
+      },
     },
     createdAt: {
       allowNull: false,

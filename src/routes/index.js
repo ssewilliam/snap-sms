@@ -13,14 +13,11 @@ Router.post(
   Validator.validateUser,
   userController.register,
 );
+Router.delete('/user', Validator.validatePhoneNumber, userController.delete);
 Router.get(
   '/user/:phoneNumber',
   Validator.validateParamPhoneNumber,
   userController.getContact,
-);
-Router.get(
-  '/users',
-  userController.getContacts,
 );
 Router.put(
   '/user/:phoneNumber',
@@ -28,11 +25,11 @@ Router.put(
   Validator.validateUser,
   userController.updateContact,
 );
+Router.get('/users', userController.getContacts);
 Router.post('/sms', Validator.validateRequest, smsController.createMessage);
-Router.delete(
-  '/user',
-  Validator.validatePhoneNumber,
-  userController.delete,
+Router.get(
+  '/sms/:receiverId',
+  Validator.validateReceiver,
+  smsController.getMessage,
 );
-
 export default Router;

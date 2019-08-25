@@ -42,5 +42,12 @@ export default (sequelize, DataTypes) => {
       smsId: sms.dataValues.id,
     });
   });
+  Sms.associate = (models) => {
+    Sms.hasOne(models.Sent, {
+      foreignKey: 'smsId',
+      as: 'sentMessages',
+      onDelete: 'CASCADE',
+    });
+  };
   return Sms;
 };
