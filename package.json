@@ -8,7 +8,7 @@
   "license": "MIT",
   "engines": {
     "node": "10.16.0",
-    "yarn":"1.16.0, 1.17.3"
+    "yarn": "1.16.0, 1.17.3"
   },
   "scripts": {
     "build-server": "babel src --out-dir dist -s",
@@ -35,7 +35,8 @@
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.13.1",
     "sequelize-cli": "^5.5.0",
-    "supertest": "^4.0.2"
+    "supertest": "^4.0.2",
+    "swagger-ui-express": "^4.0.7"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

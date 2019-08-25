@@ -1,0 +1,190 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "SMS Management Application API",
+        "description": "A simple Ndejs SMS Management API built with ExpressJS",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:5000",
+    "basePath": "/api/v1",
+    "tags": [
+        {
+            "name": "User",
+            "description": "Users in the system"
+        },
+        {
+            "name": "Message",
+            "description": "Messages in the system"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/user": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary":"Creates a user in the system",
+                "description": "Create new user in system",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "User that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Contact saved successfully",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Deletes a user in system",
+                "parameters": [
+                    {
+                        "name": "phoneNumber",
+                        "in": "body",
+                        "description": "Number of the user to delete",
+                        "schema": {
+                            "required": [
+                                "phoneNumber"
+                            ],
+                            "properties": {
+                                "phoneNumber": {
+                                    "type": "integer",
+                                    "uniqueItems": true
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Contact deleted successfully",
+                        "schema": {
+                            "properties": {
+                                "phoneNumber": {
+                                    "type": "integer",
+                                    "uniqueItems": true
+                                },
+                                "success": {
+                                    "type": "boolean",
+                                    "default": false
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "default":"User with number 4 does not exist"
+                                },
+                                "result": {
+                                    "type":"string",
+                                    "default":null
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sms":{
+            "post": {
+                "tags": [
+                    "Message"
+                ],
+                "summary": "Creates a user in the system",
+                "description": "Create new user in system",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "User that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "sms saved successfully",
+                        "schema": {
+                            "$ref": "#/definitions/Message"
+                        }
+                    }
+                }
+            }           
+        }       
+    },
+    "definitions": {
+        "User": {
+            "required": [
+                "phoneNumber"
+            ],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "phoneNumber": {
+                    "type": "integer",
+                    "uniqueItems": true
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "imageField": {
+                    "type": "string"
+                }
+            }
+        },
+        "Message":{
+            "required":[
+                "userId"
+            ],
+            "properties":{
+                "_id": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "userId": {
+                    "type":"integer"
+                },
+                "receiverId":{
+                    "type": "integer"                    
+                },
+                "messageBody": {
+                    "type":"string"
+                }
+            }
+        }
+    }
+}

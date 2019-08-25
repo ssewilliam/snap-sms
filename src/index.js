@@ -2,8 +2,10 @@ import bodyParser from 'body-parser';
 import debug from 'debug';
 import express from 'express';
 import morgan from 'morgan';
+import swaggerUi from 'swagger-ui-express';
 import routes from './routes';
 import env from './config/env';
+import swaggerDocument from '../swagger.json';
 
 const app = express();
 const port = env.APP_PORT;
@@ -18,6 +20,7 @@ app.use(
   }),
 );
 
+app.use('/docs/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/v1', routes);
 
 app.use('*', (req, res) => res.status(404).json({
