@@ -110,18 +110,18 @@
                 }
             }
         },
-        "/sms":{
-            "post": {
+        "/user/{phoneNumber}":{
+            "get": {
                 "tags": [
-                    "Message"
+                    "User"
                 ],
-                "summary": "Creates a user in the system",
-                "description": "Create new user in system",
+                "summary": "Gets a user in the system",
+                "description": "Gets a user with the {phoneNumber} the system",
                 "parameters": [
                     {
-                        "name": "user",
-                        "in": "body",
-                        "description": "User that we want to create",
+                        "name": "phoneNumber",
+                        "in": "path",
+                        "description": "User that we want to find",
                         "schema": {
                             "$ref": "#/definitions/User"
                         }
@@ -131,15 +131,156 @@
                     "application/json"
                 ],
                 "responses": {
+                    "200": {
+                        "description": "Contact Exists",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            },                        
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Updates a user in system",
+                "parameters": [
+                    {
+                        "name": "phoneNumber",
+                        "in": "path",
+                        "description": "Details of the user to update",
+                        "schema":{
+                            "phoneNumber":{
+                                "type":"integer",
+                                "default":1
+                            }
+                        }
+                    },{
+                        "name": "user",
+                        "in": "body",
+                        "description": "Details of the user to update",
+                        "schema": {
+                            "properties": {
+                                "firstName": {
+                                    "type": "boolean",
+                                    "default": ""
+                                },
+                                "lastName": {
+                                    "type": "string",
+                                    "default": ""
+                                },
+                                "imageField": {
+                                    "type": "string",
+                                    "default": "https://domain.com"
+                                }
+                            }
+                        }
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "Contact updated successfully",
+                        "schema": {
+                            "properties": {
+                                "phoneNumber": {
+                                    "type": "integer",
+                                    "uniqueItems": true,
+                                    "default": 0
+                                },
+                                "firstName": {
+                                    "type": "string",
+                                    "default": ""
+                                },
+                                "lastName": {
+                                    "type": "string",
+                                    "default":""
+                                },
+                                "image": {
+                                    "type":"string",
+                                    "default":""
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Gets all users in the system",
+                "description": "Gets all users in system",
+                "responses": {
+                    "200": {
+                        "description": "Contacts found",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            }
+        },
+        "/sms": {
+            "post": {
+                "tags": [
+                    "Message"
+                ],
+                "summary": "Sends a message to a user",
+                "description": "Send a new message to a user",
+                "parameters": [
+                    {
+                        "name": "message",
+                        "in": "body",
+                        "description": "Details about the message to send",
+                        "schema": {
+                            "$ref": "#/definitions/Message"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
                     "201": {
-                        "description": "sms saved successfully",
+                        "description": "Sms saved successfully",
                         "schema": {
                             "$ref": "#/definitions/Message"
                         }
                     }
                 }
-            }           
-        }       
+            }
+        },
+        "/sms/{recieverId}": {
+            "get": {
+                "tags": [
+                    "Message"
+                ],
+                "summary": "Gets a message sent to a user",
+                "description": "Get message sent to the receiver",
+                "parameters": [
+                    {
+                        "name": "recieverId",
+                        "in": "path",
+                        "description": "Id of the receiver",
+                        "schema": {
+                            "$ref": "#/definitions/Message"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Message Found",
+                        "schema": {
+                            "$ref": "#/definitions/Message"
+                        }
+                    }
+                }
+            }
+        }
     },
     "definitions": {
         "User": {
